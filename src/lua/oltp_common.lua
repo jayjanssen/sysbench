@@ -405,7 +405,8 @@ function cleanup()
    local drv = sysbench.sql.driver()
    local con = drv:connect()
 
-   for i = 1, sysbench.opt.tables do
+   for i = sysbench.tid % sysbench.opt.threads + 1, sysbench.opt.tables, 
+   sysbench.opt.threads do
       print(string.format("Dropping table 'sbtest%d'...", i))
       con:query("DROP TABLE IF EXISTS sbtest" .. i )
    end
